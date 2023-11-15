@@ -1,14 +1,21 @@
 import User from '../models/user.model.js';
 
-export const register = (req, res) => {
+export const register = async (req, res) => {
     const {email, password, username} = req.body
 
-    const newUser = new username({
-        username,
-        email,
-        password
-    });
-    console.log(newUser);
-}
+    try {
+        const newUser = new User({
+            username,
+            email,
+            password,
+        });
+    
+        await newUser.save();
+        res.send("registrado");
+    } catch (error) {
+        console.log(error);
+    }
+    
+};
 
 export const login = (req, res) => res.send("login");
